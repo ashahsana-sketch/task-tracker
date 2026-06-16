@@ -91,3 +91,13 @@ console.log(`
  const compltionrate = ((completedtasks/totaltask)*100); 
 
  console.log(`Completedtask : ${compltionrate}`);
+// interface
+interface User {
+  name: string;
+  id: number;
+}
+const user: User = {
+  name: "Hayes",
+  id: 0,
+};
+console.log(user);

@@ -55,14 +55,13 @@ const priority = 4;
 const completed = false;
 console.log("Task");
 console.log("taskname");
+console.log("===========================");
+console.log("Task tracker");
+console.log("===================");
 console.log("Priority");
 console.log(priority);
 console.log("completed");
 console.log(completed);
-console.log("===========================");
-console.log("Task tracker");
-console.log("==========================");
-
 console.log(`
     Task: ${taskname}
     priority:${priority}
@@ -87,6 +86,12 @@ console.log(`
 const completedtasks = 4;
 ;
 const totaltask = 100;
-const compltionrate = (completedtasks / totaltask) * 100;
+const compltionrate = ((completedtasks / totaltask) * 100);
 console.log(`Completedtask : ${compltionrate}`);
+const user = {
+    name: "Hayes",
+    id: 0,
+};
+console.log(user);
+//export {};
 //# sourceMappingURL=main.js.map
