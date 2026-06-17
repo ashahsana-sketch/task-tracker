@@ -196,4 +196,4 @@ for (let i = 0; i < tasks10.length ; i++) {
     console.log(`$(i+1): ${tasks10[i]}`);
 }
 console.log(`Antal uppgifter:${tasks10.length} st`);
-console.log("sana islam");
+console.log("Check-why I wanted to know");
