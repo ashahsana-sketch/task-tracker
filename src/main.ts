@@ -58,7 +58,7 @@ const completed = false;
 console.log("Task");
 console.log("taskname");
 console.log("===========================");
-console.log("Task tracker");
+console.log("Task tracker-1");
 console.log("===================");
 
 console.log("Priority");
@@ -101,3 +101,99 @@ const user: User = {
   id: 0,
 };
 console.log(user);
+console.log("=============jäförelse=================")
+// jämförelse
+// === lika med
+//!== inte lika med    < mindre än   > större än  >=lika med eller större än <= lika med eller mindre än 
+console.log(5>3)
+console.log(5<3)
+console.log(5===5)
+const age1 =18;
+console.log("===============if else===============")
+if (age1 <= 18 ) {
+    console.log("barn");
+}
+
+else{
+    console.log("vuxen");
+    }
+    // logiska
+    // && AND   || OR
+    if (age<=18 && myage===34)
+        console.log("Hurray")
+    //switch
+    const dayoftheweek : number =2
+  console.log("============switch==================")  
+    switch (dayoftheweek)
+    {
+case 1:{console.log("monday");break;}
+case 2:{console.log("tuesday"); break;}
+default:{console.log("wrong entry");break;}
+    }
+
+console.log("==============array================")
+    const tasks=[
+        "lära oss",
+        "Träna",
+        "HAndla",
+        "Tvätta",
+        "skriva",
+        "läsa"
+    ];
+    console.log(tasks);
+     console.log(tasks[0]);
+     console.log(tasks[1]);
+     console.log(tasks.length);
+     console.log(tasks[tasks.length-1]);
+     tasks.push ("Diska"); // add one elemene
+      console.log(tasks);
+      console.log("============array pop==================")
+     const justdone= tasks.pop(); // remove last element
+     console.log(justdone);
+     console.log(tasks );
+     //loops
+     console.log("============for loop==================")
+     for (let i=0; i<tasks.length-1; i++){
+        console.log(tasks[i]);
+     }
+     console.log("=============for typescript=================")
+
+     for (const task of tasks)
+        {
+            console.log(tasks);
+        }
+console.log("===========================");
+console.log("Task tracker with the varible tasks3");
+console.log("===================");
+const tasks3 =[
+    "lära oss",
+        "Träna",
+        "HAndla",
+        "Tvätta",
+        "skriva",
+        "läsa"
+
+]
+console.log("============for loop==================")
+     for (let i=0; i<tasks3.length-1; i++){
+        console.log(tasks[i]);
+     }
+   
+console.log("===========================");
+console.log("Task tracker with the varible tasks3");
+console.log("===================");
+const tasks10 = [
+    "lära oss",
+    "Träna",
+    "HAndla",
+    "Tvätta",
+    "skriva",
+    "läsa"
+];
+console.log("============for loop in typescript ==================");
+for (let i = 0; i < tasks10.length ; i++) {
+    // console.log(tasks10[i]);
+    console.log(`$(i+1): ${tasks10[i]}`);
+}
+console.log(`Antal uppgifter:${tasks10.length} st`);
+console.log("sana islam");
