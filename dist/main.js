@@ -187,9 +187,111 @@ const tasks10 = [
 console.log("============for loop in typescript ==================");
 for (let i = 0; i < tasks10.length; i++) {
     // console.log(tasks10[i]);
-    console.log(`$(i+1): ${tasks10[i]}`);
+    console.log(`${(i + 1)}: ${tasks10[i]}`);
 }
 console.log(`Antal uppgifter:${tasks10.length} st`);
 console.log("Check-why I wanted to know");
+// while loop
+console.log("============ while loop in typescript ==================");
+let j = 0;
+while (j < 5) {
+    console.log(j);
+    j++;
+}
+console.log("============ Do-while loop in typescript ==================");
+let k = 0;
+do {
+    console.log(k);
+    k++;
+} while (k < 5);
+console.log("============ for loop short typescript ==================");
+const age6 = 20;
+const message = age6 >= 18 ? "adult" : "child";
+console.log(message);
+console.log("===========================");
+console.log("Task tracker with the varible tasks4");
+console.log("===================");
+const tasks4 = [
+    "lära oss",
+    "Träna",
+    "HAndla",
+    "Tvätta",
+    "skriva",
+    "läsa"
+];
+console.log("Task trcker");
+console.log("============ for loop ==================");
+for (const task of tasks4) {
+    console.log(tasks4);
+}
+console.log(`Antal uppgifet:$ {tasks5.length}`);
+console.log("bye");
+console.log("bye");
+console.log("bye");
+console.log("bye");
+console.log("bye");
+console.log("============ with function ==================");
+function sayhello() {
+    console.log("bye");
+}
+sayhello();
+sayhello();
+sayhello();
+sayhello();
+sayhello();
+console.log("============ with function take input ==================");
+function sayhello1(name) {
+    console.log(`bye ${name}`);
+}
+sayhello1("Robert");
+sayhello1("Per");
+sayhello1("Greta");
+console.log("============ with function take two input ==================");
+function sayhello2(name, age6) {
+    console.log(`bye ${name} with age ${age6} år`);
+}
+sayhello1("Robert,34");
+sayhello1("Per,56");
+sayhello1("Greta, 45");
+console.log("============ with function take input and return something ==================");
+function add(x, y) {
+    return x + y;
+}
+console.log("============  functionwith addition ==================");
+const result = add(5, 3);
+console.log(result);
+console.log("============ function with full name ==================");
+function getfullname(fname, lname) {
+    return `${fname}${lname}`;
+}
+const fname = getfullname("Sana", "ISlam");
+console.log(fname);
+const tasklist = ["Ts", "CSS", "HTML"];
+function showtask() {
+    for (const task of tasklist) {
+        console.log(task);
+    }
+}
+console.log("============ Arrow function ==================");
+function greetold(name) { console.log(`Hej ${name}`); }
+function addnumgetarrow(name) { console.log(`Hej ${name}`); }
+console.log("============ show header by function function ==================");
+function showheader() {
+    console.log("===========================");
+    console.log("Task tracker with functions");
+    console.log("=============================");
+}
+function showtasks() {
+    tasks.forEach(task => { console.log(task); });
+}
+function showStatistics() { ("Antal uppgifter: ${tasks.length}"); }
+function addTask(taskname) { tasks.push(taskname); }
+showheader();
+showtask();
+showStatistics();
+addTask("go out");
+addTask("come back");
+showtask();
+showStatistics();
 export {};
 //# sourceMappingURL=main.js.map
