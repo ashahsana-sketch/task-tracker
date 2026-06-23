@@ -1,8 +1,8 @@
  // header function
  function showHeader(): void {
-     console.log("========================");
-     console.log("=== !!!Task tracker!!===");
-     console.log("========================");
+     console.log("\t\t\t\t=========================================");
+     console.log("\t\t\t\t============ !!!Task tracker!!===========");
+     console.log("\t\t\t\t=========================================");
  }
  // status with enum   every list has one number
 
