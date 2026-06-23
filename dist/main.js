@@ -282,7 +282,7 @@ function showheader() {
     console.log("=============================");
 }
 function showtasks() {
-    tasks.forEach(task => { console.log(task); });
+    tasks.forEach(tasks => { console.log(task); });
 }
 function showStatistics() { ("Antal uppgifter: ${tasks.length}"); }
 function addTask(taskname) { tasks.push(taskname); }

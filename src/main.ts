@@ -293,7 +293,7 @@ console.log("Task tracker with functions");
 console.log("=============================");
 }
 function showtasks(){
-    tasks.forEach(tasks=>{console.log(task);})
+    tasks.forEach(tasks=>{console.log(tasks);})
 }
 function showStatistics(){("Antal uppgifter: ${tasks.length}");}
 function addTask(taskname:string){tasks.push(taskname);}
@@ -304,6 +304,8 @@ addTask("go out");
 addTask("come back");
 showtask();
 showStatistics();
+
+
 
 
 
