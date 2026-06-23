@@ -19,4 +19,4 @@ console.log(task2.description);
 function showTask (task:Task){
     console.log(task.name);
 }
-showTask(tasks[1]!);
+//showTask(tasks[1]!);

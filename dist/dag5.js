@@ -9,5 +9,9 @@ const task2 = {
 };
 console.log(task.description);
 console.log(task2.description);
+function showTask(task) {
+    console.log(task.name);
+}
 export {};
+//showTask(tasks[1]!);
 //# sourceMappingURL=dag5.js.map
