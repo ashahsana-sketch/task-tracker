@@ -15,7 +15,7 @@ enum Status {
 type Priority = "Low" | "Medium" | "High";
 // List of task
 
-type Task = {
+type Task = { // used
     name: string;
     status: Status;
     priority: Priority;
@@ -85,7 +85,7 @@ function showTasksintable() {
 }
 // count completed task
 function countCompletedTasks() {
-    let completestatus = 0; 
+    let completestatus =  0; 
     let incompletestatus=0;
     let highpriority=0;
     let mediumpriority=0;
@@ -198,6 +198,70 @@ console.log("\n\n\n\n------ Low Priority Task ---------");
 lowPriorityTask();
 console.log("\n\n\n\n------ Ascending Priority ---------");
 ascendingPriority();
+
+const title = document.querySelector("#h1") as HTMLHeadingElement;
+title.textContent = "Task Tracker";
+const headingTwo = document.querySelector("#h2") as HTMLHeadingElement;
+headingTwo.textContent = "Task Tracker is Loading...";
+
+
+const app = document.querySelector("#app");
+ function renderTasks(): void {
+    if (app) {
+        app.innerHTML = "";
+    }
+
+    for (const task of tasks) {
+        const card = document.createElement("div");
+        card.classList.add("task");
+
+        if (task.priority === "Low") 
+            {card.classList.add("low-priority");} 
+        else if (task.priority === "Medium") 
+            {card.classList.add("medium-priority");} 
+        else if (task.priority === "High") 
+            {card.classList.add("high-priority");}
+       
+        const title = document.createElement("h3");
+        title.textContent = task.name;
+
+        const status = document.createElement("p");
+        status.textContent = `Status: ${task.status}`
+
+        const priority = document.createElement("p");
+        priority.textContent = `Priority: ${task.priority}`;
+
+        const notes = document.createElement("p");
+        notes.textContent = `Notes: ${task.notes}`;
+
+        const description = document.createElement("p");
+        description.textContent = `Description: ${task.description}`;
+
+        const completeButton = document.createElement("button");
+        completeButton.classList.add("btn");
+        completeButton.style.margin = "20px";
+        completeButton.textContent = "Complete";
+
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("btn");
+        deleteButton.textContent = "Delete";
+
+        card.append(
+            title,
+            status,
+            priority,
+            notes,
+            description,
+            completeButton,
+            deleteButton
+        );
+
+        app?.append(card);
+    }
+ }
+
+renderTasks();
+
 // watchedPercentage();
 
 // console.log("\n\n Rating ");

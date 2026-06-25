@@ -1,0 +1,17 @@
+.task {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.low-priority {
+    border: 2px solid green;
+}
+
+.medium-priority {
+    border: 2px solid orange;
+}
+
+.high-priority {
+    border: 2px solid red;
+}
