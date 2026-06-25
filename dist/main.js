@@ -5,66 +5,78 @@ function showHeader() {
     console.log("\t\t\t\t=========================================");
 }
 // status with enum   every list has one number
-var Status;
-(function (Status) {
-    Status["Todo"] = "Todo";
-    Status["InProgress"] = "In Progress";
-    Status["Done"] = "Done";
-})(Status || (Status = {}));
-const tasks = [
-    {
-        name: "Buy groceries",
-        status: Status.Todo,
-        priority: "High",
-        description: "Buy milk, eggs and bread"
-    },
-    {
-        name: "Finish assignment",
-        status: Status.InProgress,
-        priority: "Medium",
-        notes: "Complete before Friday"
-    },
-    {
-        name: "Exercise",
-        status: Status.Done,
-        priority: "Low"
-    },
-    {
-        name: "Read a book",
-        status: Status.Todo,
-        priority: "Low",
-        description: "Read at least 20 pages"
-    },
-    {
-        name: "Clean room",
-        status: Status.InProgress,
-        priority: "Medium",
-        notes: "Organize desk and wardrobe"
-    },
-    {
-        name: "Prepare presentation",
-        status: Status.Todo,
-        priority: "High",
-        description: "Slides for Monday meeting"
-    },
-    {
-        name: "Call doctor",
-        status: Status.Done,
-        priority: "High",
-        notes: "Annual checkup completed",
-        description: "really sick"
-    },
-    {
-        name: "Learn TypeScript",
-        status: Status.InProgress,
-        priority: "High",
-        description: "Practice enums, types, and functions"
-    }
-];
+// enum Status {
+//     Todo = "Todo",
+//     //InProgress = "In Progress",
+//     Done = "Done"
+// }
+// 
+// type TaskPriority = "Low" | "Medium" | "High";
+// // List of task
+// type Task = { // used
+//     id:number;
+//     name: string;
+//     status: "pending" | "completed";
+//     priority: "Low" | "Medium" | "High";
+//    // description?: string; // optional
+//     //notes?: string;// optional
+// };
+// let tasks:Task[]=[];
+// const tasks: Task[] = [
+//     {
+//         id:1,
+//         name: "Buy groceries",
+//         status: Status.Todo,
+//         priority: "High",
+//         description: "Buy milk, eggs and bread"
+//     },
+// {
+//     name: "Finish assignment",
+//     status: Status.InProgress,
+//     priority: "Medium",
+//     notes: "Complete before Friday"
+// },
+// {
+//     name: "Exercise",
+//     status: Status.Done,
+//     priority: "Low"
+// },
+// {
+//     name: "Read a book",
+//     status: Status.Todo,
+//     priority: "Low",
+//     description: "Read at least 20 pages"
+// },
+// {
+//     name: "Clean room",
+//     status: Status.InProgress,
+//     priority: "Medium",
+//     notes: "Organize desk and wardrobe"
+// },
+// {
+//     name: "Prepare presentation",
+//     status: Status.Todo,
+//     priority: "High",
+//     description: "Slides for Monday meeting"
+// },
+// {
+//     name: "Call doctor",
+//     status: Status.Done,
+//     priority: "High",
+//     notes: "Annual checkup completed",
+//     description:"really sick"
+// },
+// {
+//     name: "Learn TypeScript",
+//     status: Status.InProgress,
+//     priority: "High",
+//     description: "Practice enums, types, and functions"
+// }
+// ];
 // show task funtion
 function showTasks() {
     tasks.forEach(task => {
-        console.log(`${task.name.padEnd(30)}${String(task.status).padEnd(20)}${task.priority.padEnd(8)}${task.notes?.padEnd(30)}${task.description?.padEnd(20)}`);
+        console.log(`${task.name.padEnd(30)}${String(task.status).padEnd(20)}${task.priority.padEnd(8)}`);
     });
 }
 // task are shows in table
@@ -79,10 +91,14 @@ function countCompletedTasks() {
     let mediumpriority = 0;
     let lowpriority = 0;
     for (const task of tasks) {
-        if (task.status === Status.Done) {
+        // status counting
+        if (task.status === "completed") {
             completestatus++;
         }
-        incompletestatus++;
+        else {
+            incompletestatus++;
+        }
+        // priority counting
         if (task.priority === "High") {
             highpriority++;
         }
@@ -93,16 +109,16 @@ function countCompletedTasks() {
             lowpriority++;
         }
     }
-    console.log("Completed tasks:", completestatus);
-    console.log("Incompleted tasks:", incompletestatus);
-    console.log("High priority Task:", highpriority);
-    console.log("Medium priority Task:", mediumpriority);
-    console.log("Low priority Task:", lowpriority);
+    console.log("Completed:", completestatus);
+    console.log("Incomplete:", incompletestatus);
+    console.log("High:", highpriority);
+    console.log("Medium:", mediumpriority);
+    console.log("Low:", lowpriority);
 }
 // show pending Task
 function ShowInCompTask() {
     for (const task of tasks) {
-        if (task.status === Status.InProgress) {
+        if (task.status === "pending") {
             console.log(task.name);
         }
     }
@@ -110,7 +126,7 @@ function ShowInCompTask() {
 // show pending Task
 function ShowCompTask() {
     for (const task of tasks) {
-        if (task.status === Status.Done) {
+        if (task.status === "completed") {
             console.log(task.name);
         }
     }
@@ -124,7 +140,7 @@ function HighPriorityTask() {
     }
 }
 // // add task in the list
-function addTask(task) {
+function addTask1(task) {
     tasks.push(task);
 }
 // shows the task with low priority
@@ -148,8 +164,78 @@ function ascendingPriority() {
         console.log(`${task.priority} - ${task.name} - ${task.status}`);
     }
 }
+let tasks = [
+    { id: 2,
+        name: "Clean room",
+        status: "completed",
+        priority: "Medium",
+    },
+    { id: 3,
+        name: "Prepare presentation",
+        status: "pending",
+        priority: "High",
+    },
+    {
+        id: 4,
+        name: "Call doctor",
+        status: "pending",
+        priority: "Low",
+    }
+];
+const title = document.querySelector("#h1");
+title.textContent = "Task Tracker";
+const headingTwo = document.querySelector("#h2");
+headingTwo.textContent = "Task Tracker is Loading...";
+// Start:thursdaty task
+const addButton = document.querySelector("#a-button");
+const taskInput = document.querySelector("#task-input");
+const priorityInput = document.querySelector("#priority-input");
+let nextId = 1;
+addButton.addEventListener("click", () => {
+    const taskName = taskInput.value.trim();
+    if (taskName === "") {
+        console.log("Task name is required.");
+        return;
+    }
+    const priority = priorityInput.value;
+    addTask(taskName, priority);
+});
+function addTask(name, priority) {
+    const newTask = {
+        id: nextId,
+        name: name,
+        status: "pending",
+        priority
+    };
+    tasks.push(newTask);
+    nextId++;
+    renderTasks();
+    console.log(tasks);
+    taskInput.value = "";
+}
+function toggleTask(id) {
+    for (const task of tasks) {
+        if (task.id === id) {
+            task.status = task.status === "pending" ? "completed" : "pending";
+        }
+    }
+    renderTasks();
+}
+function deleteTask(id) {
+    tasks = tasks.filter((task) => task.id !== id);
+    renderTasks();
+}
+// End : Thursday Task
 //  Main program 
 showHeader();
+console.log("\n\n\n\n------ Mark one task is completed and print it ---------");
+//markedAsCompleted("Done");
+addTask1({
+    id: 1,
+    name: "Make programr",
+    status: "completed",
+    priority: "High"
+});
 showTasks();
 console.log("\n\n\n\n------TAsk is in Table format---------");
 showTasksintable();
@@ -161,25 +247,10 @@ console.log("\n\n\n\n------Completed Task ---------");
 ShowCompTask();
 console.log("\n\n\n\n------High Priority Task ---------");
 HighPriorityTask();
-console.log("\n\n\n\n------ Mark one task is completed and print it ---------");
-//markedAsCompleted("Done");
-addTask({
-    name: "Make programr",
-    status: Status.Done,
-    priority: "High",
-    notes: "check the program",
-    description: "Task Tracker"
-});
-console.log("\n\n\n\n------ Mark one task is completed and print it ---------");
-showTasksintable();
 console.log("\n\n\n\n------ Low Priority Task ---------");
 lowPriorityTask();
 console.log("\n\n\n\n------ Ascending Priority ---------");
 ascendingPriority();
-const title = document.querySelector("#h1");
-title.textContent = "Task Tracker";
-const headingTwo = document.querySelector("#h2");
-headingTwo.textContent = "Task Tracker is Loading...";
 const app = document.querySelector("#app");
 function renderTasks() {
     if (app) {
@@ -197,29 +268,64 @@ function renderTasks() {
         else if (task.priority === "High") {
             card.classList.add("high-priority");
         }
+        if (task.status === "completed") {
+            card.classList.add("completed");
+        }
         const title = document.createElement("h3");
         title.textContent = task.name;
         const status = document.createElement("p");
         status.textContent = `Status: ${task.status}`;
         const priority = document.createElement("p");
         priority.textContent = `Priority: ${task.priority}`;
-        const notes = document.createElement("p");
-        notes.textContent = `Notes: ${task.notes}`;
-        const description = document.createElement("p");
-        description.textContent = `Description: ${task.description}`;
         const completeButton = document.createElement("button");
         completeButton.classList.add("btn");
         completeButton.style.margin = "20px";
         completeButton.textContent = "Complete";
+        completeButton.textContent = task.status === "pending" ? "Complete" : "Undo";
+        completeButton.addEventListener("click", () => {
+            toggleTask(task.id);
+        });
         const deleteButton = document.createElement("button");
         deleteButton.classList.add("btn");
         deleteButton.textContent = "Delete";
-        card.append(title, status, priority, notes, description, completeButton, deleteButton);
+        deleteButton.addEventListener("click", () => {
+            deleteTask(task.id);
+        });
+        card.append(title, status, priority, completeButton, deleteButton);
         app?.append(card);
     }
 }
 renderTasks();
+// show the additional task
+const tableBody = document.querySelector("#task-table-body");
+function addTaskToTable(task) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${task.name}</td>
+        <td>${task.status}</td>
+        <td>${task.priority}</td>
+    `;
+    tableBody.appendChild(row);
+}
+// addButton.addEventListener("click", () => {
+//     const taskName = taskinput.value.trim();
+//     const newTask: Task = {
+//         id: Date.now(),
+//         name: taskName,
+//         status: "pending",
+//         priority: taskpriority.value as Task["priority"]
+//     };
+//     tasks.push(newTask);
+//     addTaskToTable(newTask);
+// });
+function loadTasks() {
+    tableBody.innerHTML = ""; // clear old rows
+    for (const task of tasks) {
+        addTaskToTable(task);
+    }
+}
 export {};
+//loadTasks();
 // watchedPercentage();
 // console.log("\n\n Rating ");
 // ratings();
