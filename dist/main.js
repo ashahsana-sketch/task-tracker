@@ -187,7 +187,7 @@ showCompletedTasks();
 showHighPriorityTasks();
 showLowPriorityTasks();
 ascendingPriority();
-// Wire up UI
+// user interface
 if (addButton && taskInput && priorityInput) {
     addButton.addEventListener("click", () => {
         const taskName = taskInput.value.trim();

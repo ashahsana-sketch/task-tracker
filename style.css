@@ -1,3 +1,5 @@
+body{margin: 5rem;
+    background-color: rgb(160, 209, 225);}
 .task {
     border: 1px solid #ddd;
     padding: 1rem;
