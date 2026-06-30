@@ -199,6 +199,7 @@ function renderTasks() {
     for (const task of tasks) {
         const cardDisplay = document.createElement("div");
         cardDisplay.classList.add("task");
+        cardDisplay.classList.add("ribbon");
         cardDisplay.classList.add(task.priority === "Low" ? "low-priority" : task.priority === "Medium" ? "medium-priority" : "high-priority");
         if (task.status === "completed")
             cardDisplay.classList.add("completed");
@@ -219,6 +220,10 @@ function renderTasks() {
         deleteButton.classList.add("btn");
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", () => deleteTask(task.id));
+        deleteButton.classList.add("deletedcard");
+        if (task.status === "deleted") {
+            cardTitle.classList.add("deletedcard");
+        }
         cardDisplay.append(cardTitle, cardStatus, cardPriority, completeButton, deleteButton);
         target.append(cardDisplay);
     }
@@ -237,9 +242,6 @@ function toggleTask(id) {
 }
 function deleteTask(id) {
     tasks = tasks.filter((task) => task.id !== id);
-    //const cardDisplay = document.createElement("div");
-    //if (task.status ==="Delete")
-    //cardDisplay.classList.add("deletedcard")}
     renderTasks();
     countCompletedTasks();
     showIncompleteTasks();

@@ -16,7 +16,7 @@ type TaskPriority = "Low" | "Medium" | "High";
 type Task = {
     id: number;
     name: string;
-    status: "pending" | "completed";
+    status: "pending" | "completed" | "deleted";
     priority: TaskPriority;
 };
 
@@ -237,8 +237,10 @@ function renderTasks(): void {
     for (const task of tasks) {
         const cardDisplay = document.createElement("div");
         cardDisplay.classList.add("task");
+        cardDisplay.classList.add("ribbon");
         cardDisplay.classList.add(task.priority === "Low" ? "low-priority" : task.priority === "Medium" ? "medium-priority" : "high-priority");
         if (task.status === "completed") cardDisplay.classList.add("completed");
+
 
         const cardTitle = document.createElement("h3");
         cardTitle.textContent = task.name;
@@ -253,15 +255,22 @@ function renderTasks(): void {
         completeButton.classList.add("btn");
         if (task.status === "completed") {
             completeButton.classList.add("complete");
+            
         }
+        
+       
         completeButton.textContent = task.status === "pending" ? "Complete" : "Undo";
         completeButton.addEventListener("click", () => toggleTask(task.id));
 
         const deleteButton = document.createElement("button");
-        deleteButton.classList.add("btn");
+        deleteButton.classList.add("btn"); 
+        
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", () => deleteTask(task.id));
-
+        deleteButton.classList.add("deletedcard");
+        if (task.status === "deleted") {
+        cardTitle.classList.add("deletedcard");
+}
         cardDisplay.append(cardTitle, cardStatus, cardPriority, completeButton, deleteButton);
         target.append(cardDisplay);
     }
@@ -280,16 +289,12 @@ function toggleTask(id: number): void {
 
 function deleteTask(id: number): void {
     tasks = tasks.filter((task) => task.id !== id);
-   //const cardDisplay = document.createElement("div");
-    //if (task.status ==="Delete")
-    //cardDisplay.classList.add("deletedcard")}
     renderTasks();
     countCompletedTasks();
     showIncompleteTasks();
     showHighPriorityTasks();
     console.table(tasks);
 }
-
 
 
 //showTasksInConsole();
