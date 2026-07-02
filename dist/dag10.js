@@ -3,6 +3,8 @@ const app = document.querySelector("#app");
 const statsDiv = document.querySelector("#stats");
 const inComplete = document.querySelector("#inComplete");
 const addButton = document.querySelector("#save-task-button");
+const errormessage = document.querySelector("#error-message");
+const taskForm = document.querySelector("#form-element");
 const taskInput = document.querySelector("#task-input");
 const priorityInput = document.querySelector("#priority-input");
 const highPriorityDiv = document.querySelector("#HighPriority");
@@ -46,6 +48,35 @@ function toggleTaskStatus(id) {
     showIncompleteTasks();
     showHighPriorityTasks();
 }
+// function to validate and other problems in the input fields
+taskForm?.addEventListener("submit", handleSubmit);
+function handleSubmit(event) {
+    event.preventDefault();
+    const taskInput = document.querySelector("#task-input");
+    const priorityInput = document.querySelector("#priority-input");
+    if (!taskInput || !priorityInput)
+        return;
+    const name = taskInput.value.trim();
+    const priority = priorityInput.value.trim();
+    if (!name) {
+        if (errormessage) {
+            errormessage.textContent = "Task name is required.";
+        }
+        return;
+    }
+    if (!isTaskPriority(priority)) {
+        if (errormessage) {
+            errormessage.textContent = "Invalid priority selected.";
+        }
+        return;
+    }
+    if (errormessage) {
+        errormessage.textContent = "";
+    }
+    addTask(name, priority);
+    taskInput.value = "";
+    priorityInput.value = "";
+}
 function renderTasks() {
     const target = taskPrint || app;
     if (!target)
@@ -76,9 +107,29 @@ function renderTasks() {
         priorityButton.style.padding = "0.4rem 0.8rem";
         priorityButton.style.marginLeft = "0.5rem";
         priorityButton.disabled = true;
-        cardDisplay.append(cardTitle, cardStatus, cardPriority, statusButton, priorityButton);
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete Task";
+        deleteButton.style.backgroundColor = "gray";
+        deleteButton.style.color = "white";
+        deleteButton.style.padding = "0.4rem 0.8rem";
+        deleteButton.style.marginLeft = "0.5rem";
+        deleteButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            deleteTask(task.id);
+        });
+        cardDisplay.append(cardTitle, cardStatus, cardPriority, statusButton, priorityButton, deleteButton);
         target.append(cardDisplay);
     }
+}
+function deleteTask(id) {
+    const taskIndex = tasks.findIndex((item) => item.id === id);
+    if (taskIndex === -1)
+        return;
+    tasks.splice(taskIndex, 1);
+    renderTasks();
+    Taskstatistics();
+    showIncompleteTasks();
+    showHighPriorityTasks();
 }
 function addTask(name, priority) {
     const newTask = {
@@ -94,7 +145,7 @@ function addTask(name, priority) {
     showHighPriorityTasks();
 }
 function Taskstatistics() {
-    console.log("::::::::::::Statistics:::::::");
+    //console.log("::::::::::::Statistics:::::::")
     let completed = 0;
     let incomplete = 0;
     let high = 0;
@@ -114,14 +165,14 @@ function Taskstatistics() {
     }
     if (!statsDiv)
         return;
-    console.log("Completed:", completed);
-    console.log("Incomplete:", incomplete);
-    console.log("High:", high);
-    console.log("Medium:", medium);
-    console.log("Low:", low);
+    // console.log("Completed:", completed);
+    // console.log("Incomplete:", incomplete);
+    // console.log("High:", high);
+    // console.log("Medium:", medium);
+    // console.log("Low:", low);
     statsDiv.innerHTML = `
         <h3>Statistics</h3>
-        <ul> Total Task:${tasks.length}
+        <ul>Total Task:${tasks.length}</ul>
         <ul>Completed: ${completed}</ul>
         <ul>Incomplete: ${incomplete}</ul>
         <ul>High Priority: ${high}</ul>
@@ -149,24 +200,24 @@ function showHighPriorityTasks() {
         }
     }
 }
-if (addButton && taskInput && priorityInput) {
-    addButton.addEventListener("click", (event) => {
-        event.preventDefault();
-        const taskName = taskInput.value.trim();
-        if (!taskName) {
-            console.log("Task name is required.");
-            return;
-        }
-        const value = priorityInput.value;
-        let priority = "Low";
-        if (isTaskPriority(value)) {
-            priority = value;
-        }
-        addTask(taskName, priority);
-        taskInput.value = "";
-        priorityInput.value = "Low";
-    });
-}
+// if (addButton && taskInput && priorityInput) {
+//     addButton.addEventListener("click", (event) => {
+//         event.preventDefault();
+//         const taskName = taskInput.value.trim();
+//         if (!taskName) {
+//             console.log("Task name is required.");
+//             return;
+//         }
+//         const value = priorityInput.value;
+//         let priority: Task["priority"] = "Low";
+//         if (isTaskPriority(value)) {
+//             priority = value;
+//         }
+//         addTask(taskName, priority);
+//         taskInput.value = "";
+//         priorityInput.value = "Low";
+//     });
+// }
 showHeader();
 addTask("Handla", "Medium");
 renderTasks();

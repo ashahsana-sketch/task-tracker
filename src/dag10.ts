@@ -3,10 +3,11 @@ const app = document.querySelector("#app") as HTMLElement | null;
 const statsDiv = document.querySelector("#stats") as HTMLElement | null;
 const inComplete = document.querySelector("#inComplete") as HTMLElement | null;
 const addButton = document.querySelector("#save-task-button") as HTMLButtonElement | null;
+const errormessage = document.querySelector("#error-message") as HTMLElement | null;
+const taskForm = document.querySelector("#form-element") as HTMLFormElement | null;
 const taskInput = document.querySelector("#task-input") as HTMLInputElement | null;
 const priorityInput = document.querySelector("#priority-input") as HTMLSelectElement | null;
 const highPriorityDiv = document.querySelector("#HighPriority") as HTMLElement | null;
-
 function showHeader(): void {
     const h1 = document.querySelector("#h1") as HTMLHeadingElement | null;
     const h2 = document.querySelector("#h2") as HTMLHeadingElement | null;
@@ -54,6 +55,44 @@ function toggleTaskStatus(id: number): void {
     showIncompleteTasks();
     showHighPriorityTasks();
 }
+// function to validate and other problems in the input fields
+taskForm?.addEventListener("submit", handleSubmit);
+function handleSubmit(event: SubmitEvent): void {
+    event.preventDefault();
+
+    const taskInput = document.querySelector("#task-input") as HTMLInputElement | null;
+    const priorityInput = document.querySelector("#priority-input") as HTMLSelectElement | null;
+
+    if (!taskInput || !priorityInput) return;
+
+    const name = taskInput.value.trim();
+    const priority = priorityInput.value.trim();
+
+    if (!name) {
+        if (errormessage) {
+            errormessage.textContent = "Task name is required.";
+        }
+        return;
+    }
+
+    if (!isTaskPriority(priority)) {
+        if (errormessage) {
+            errormessage.textContent = "Invalid priority selected.";
+        }
+        return;
+    }
+
+    if (errormessage) {
+        errormessage.textContent = "";
+    }
+
+    addTask(name, priority);
+
+    taskInput.value = "";
+    priorityInput.value = "";
+}
+
+
 
 function renderTasks(): void {
     const target = taskPrint || app;
@@ -90,10 +129,31 @@ function renderTasks(): void {
         priorityButton.style.padding = "0.4rem 0.8rem";
         priorityButton.style.marginLeft = "0.5rem";
         priorityButton.disabled = true;
+        
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete Task";
+        deleteButton.style.backgroundColor = "gray";
+        deleteButton.style.color = "white";
+        deleteButton.style.padding = "0.4rem 0.8rem";
+        deleteButton.style.marginLeft = "0.5rem";
+        deleteButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            deleteTask(task.id);
+        });
 
-        cardDisplay.append(cardTitle, cardStatus, cardPriority, statusButton, priorityButton);
+        cardDisplay.append(cardTitle, cardStatus, cardPriority, statusButton, priorityButton, deleteButton);
         target.append(cardDisplay);
     }
+}
+function deleteTask(id: number): void {
+    const taskIndex = tasks.findIndex((item) => item.id === id);
+    if (taskIndex === -1) return;
+
+    tasks.splice(taskIndex, 1);
+    renderTasks();
+    Taskstatistics();
+    showIncompleteTasks();
+    showHighPriorityTasks();
 }
 
 function addTask(name: string, priority: "Low" | "Medium" | "High"): void {
@@ -112,7 +172,7 @@ function addTask(name: string, priority: "Low" | "Medium" | "High"): void {
 
 }
 function Taskstatistics(): void {
-    console.log("::::::::::::Statistics:::::::")
+    //console.log("::::::::::::Statistics:::::::")
     let completed = 0;
     let incomplete = 0;
     let high = 0;
@@ -127,15 +187,15 @@ function Taskstatistics(): void {
             else low++;
     }
      if (!statsDiv) return;
-     console.log("Completed:", completed);
-    console.log("Incomplete:", incomplete);
-    console.log("High:", high);
-    console.log("Medium:", medium);
-    console.log("Low:", low);
+    // console.log("Completed:", completed);
+    // console.log("Incomplete:", incomplete);
+    // console.log("High:", high);
+    // console.log("Medium:", medium);
+    // console.log("Low:", low);
 
     statsDiv.innerHTML = `
         <h3>Statistics</h3>
-        <ul> Total Task:${tasks.length}
+        <ul>Total Task:${tasks.length}</ul>
         <ul>Completed: ${completed}</ul>
         <ul>Incomplete: ${incomplete}</ul>
         <ul>High Priority: ${high}</ul>
@@ -168,28 +228,28 @@ function showHighPriorityTasks(): void {
     }
 }
 
-if (addButton && taskInput && priorityInput) {
-    addButton.addEventListener("click", (event) => {
-        event.preventDefault();
+// if (addButton && taskInput && priorityInput) {
+//     addButton.addEventListener("click", (event) => {
+//         event.preventDefault();
 
-        const taskName = taskInput.value.trim();
-        if (!taskName) {
-            console.log("Task name is required.");
-            return;
-        }
+//         const taskName = taskInput.value.trim();
+//         if (!taskName) {
+//             console.log("Task name is required.");
+//             return;
+//         }
 
-        const value = priorityInput.value;
-        let priority: Task["priority"] = "Low";
+//         const value = priorityInput.value;
+//         let priority: Task["priority"] = "Low";
 
-        if (isTaskPriority(value)) {
-            priority = value;
-        }
+//         if (isTaskPriority(value)) {
+//             priority = value;
+//         }
 
-        addTask(taskName, priority);
-        taskInput.value = "";
-        priorityInput.value = "Low";
-    });
-}
+//         addTask(taskName, priority);
+//         taskInput.value = "";
+//         priorityInput.value = "Low";
+//     });
+// }
 showHeader();
 addTask("Handla", "Medium");
 renderTasks();
