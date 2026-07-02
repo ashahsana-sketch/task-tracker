@@ -1,4 +1,5 @@
 import { tasks } from "./types";
+import { deleteTask } from "./dag10";
 const taskPrint = document.querySelector("#tasks-print");
 const app = document.querySelector("#app");
 function getStatusButtonText(status) {
@@ -51,7 +52,17 @@ export function renderTasks() {
         priorityButton.style.padding = "0.4rem 0.8rem";
         priorityButton.style.marginLeft = "0.5rem";
         priorityButton.disabled = true;
-        cardDisplay.append(cardTitle, cardStatus, cardPriority, statusButton, priorityButton);
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete Task";
+        deleteButton.style.backgroundColor = "gray";
+        deleteButton.style.color = "white";
+        deleteButton.style.padding = "0.4rem 0.8rem";
+        deleteButton.style.marginLeft = "0.5rem";
+        deleteButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            deleteTask(task.id);
+        });
+        cardDisplay.append(cardTitle, cardStatus, cardPriority, statusButton, priorityButton, deleteButton);
         target.append(cardDisplay);
     }
 }

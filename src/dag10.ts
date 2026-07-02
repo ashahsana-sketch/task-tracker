@@ -8,6 +8,8 @@ const taskForm = document.querySelector("#form-element") as HTMLFormElement | nu
 const taskInput = document.querySelector("#task-input") as HTMLInputElement | null;
 const priorityInput = document.querySelector("#priority-input") as HTMLSelectElement | null;
 const highPriorityDiv = document.querySelector("#HighPriority") as HTMLElement | null;
+const clearAllButton = document.querySelector("#clear-all") as HTMLButtonElement | null;
+const emptyMessage = document.querySelector("#empty-message") as HTMLElement | null;
 function showHeader(): void {
     const h1 = document.querySelector("#h1") as HTMLHeadingElement | null;
     const h2 = document.querySelector("#h2") as HTMLHeadingElement | null;
@@ -50,10 +52,25 @@ function toggleTaskStatus(id: number): void {
     if (!task) return;
 
     task.status = task.status === "completed" ? "pending" : "completed";
-    renderTasks();
-    Taskstatistics();
-    showIncompleteTasks();
-    showHighPriorityTasks();
+    updateUI();
+}
+// local storage
+function saveTasks(): void {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+//load tasks from local storage
+function loadTasks(): void {
+    const stored = localStorage.getItem("tasks");
+
+    if (!stored) return;
+
+    try {
+        const parsed: Task[] = JSON.parse(stored);
+        tasks.length = 0;
+        tasks.push(...parsed);
+    } catch (error) {
+        console.error("Failed to load tasks:", error);
+    }
 }
 // function to validate and other problems in the input fields
 taskForm?.addEventListener("submit", handleSubmit);
@@ -81,24 +98,42 @@ function handleSubmit(event: SubmitEvent): void {
         }
         return;
     }
+    //   if (name.length < 3) {
+    //     errormessage!.textContent = "Task name must be at least 3 characters.";
+    //     return;
+    // }
 
+    // if (name.length > 20) {
+    //     errormessage!.textContent = "Task name cannot be longer than 20 characters.";
+    //     return;
+    // }
     if (errormessage) {
         errormessage.textContent = "";
     }
-
+    if (tasks.some(task => task.name.toLowerCase() === name.toLowerCase())) {
+    if (errormessage) {
+        errormessage.textContent = "A task with this name already exists.";
+    }
+    return;
+}
     addTask(name, priority);
 
-    taskInput.value = "";
-    priorityInput.value = "";
+    taskForm?.reset();
 }
 
-
+// function to clear all tasks
+clearAllButton?.addEventListener("click", () => {
+    if (!confirm("Are you sure you want to delete all tasks?")) return;
+    tasks.length = 0;              // clear array
+    localStorage.removeItem("tasks"); // clear storage
+    updateUI();                    // rerender page
+});
 
 function renderTasks(): void {
     const target = taskPrint || app;
     if (!target) return;
     target.innerHTML = "";
-
+       
     for (const task of tasks) {
         const cardDisplay = document.createElement("div");
         cardDisplay.className = "bg-complate m-3";
@@ -150,10 +185,7 @@ function deleteTask(id: number): void {
     if (taskIndex === -1) return;
 
     tasks.splice(taskIndex, 1);
-    renderTasks();
-    Taskstatistics();
-    showIncompleteTasks();
-    showHighPriorityTasks();
+    updateUI();
 }
 
 function addTask(name: string, priority: "Low" | "Medium" | "High"): void {
@@ -165,10 +197,7 @@ function addTask(name: string, priority: "Low" | "Medium" | "High"): void {
     };
 
     tasks.push(newTask);
-    renderTasks();
-    Taskstatistics();
-    showIncompleteTasks();
-    showHighPriorityTasks();
+    updateUI();
 
 }
 function Taskstatistics(): void {
@@ -227,7 +256,14 @@ function showHighPriorityTasks(): void {
         }
     }
 }
-
+function updateUI(): void {
+    renderTasks();
+    Taskstatistics();
+    showIncompleteTasks();
+    showHighPriorityTasks();
+    saveTasks();
+    
+}
 // if (addButton && taskInput && priorityInput) {
 //     addButton.addEventListener("click", (event) => {
 //         event.preventDefault();
@@ -251,8 +287,7 @@ function showHighPriorityTasks(): void {
 //     });
 // }
 showHeader();
-addTask("Handla", "Medium");
-renderTasks();
-Taskstatistics();
-showIncompleteTasks();
-showHighPriorityTasks();
+//addTask("Handla", "Medium");
+loadTasks();
+updateUI();
+

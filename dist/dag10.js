@@ -8,6 +8,8 @@ const taskForm = document.querySelector("#form-element");
 const taskInput = document.querySelector("#task-input");
 const priorityInput = document.querySelector("#priority-input");
 const highPriorityDiv = document.querySelector("#HighPriority");
+const clearAllButton = document.querySelector("#clear-all");
+const emptyMessage = document.querySelector("#empty-message");
 function showHeader() {
     const h1 = document.querySelector("#h1");
     const h2 = document.querySelector("#h2");
@@ -43,10 +45,25 @@ function toggleTaskStatus(id) {
     if (!task)
         return;
     task.status = task.status === "completed" ? "pending" : "completed";
-    renderTasks();
-    Taskstatistics();
-    showIncompleteTasks();
-    showHighPriorityTasks();
+    updateUI();
+}
+// local storage
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+//load tasks from local storage
+function loadTasks() {
+    const stored = localStorage.getItem("tasks");
+    if (!stored)
+        return;
+    try {
+        const parsed = JSON.parse(stored);
+        tasks.length = 0;
+        tasks.push(...parsed);
+    }
+    catch (error) {
+        console.error("Failed to load tasks:", error);
+    }
 }
 // function to validate and other problems in the input fields
 taskForm?.addEventListener("submit", handleSubmit);
@@ -70,13 +87,34 @@ function handleSubmit(event) {
         }
         return;
     }
+    //   if (name.length < 3) {
+    //     errormessage!.textContent = "Task name must be at least 3 characters.";
+    //     return;
+    // }
+    // if (name.length > 20) {
+    //     errormessage!.textContent = "Task name cannot be longer than 20 characters.";
+    //     return;
+    // }
     if (errormessage) {
         errormessage.textContent = "";
     }
+    if (tasks.some(task => task.name.toLowerCase() === name.toLowerCase())) {
+        if (errormessage) {
+            errormessage.textContent = "A task with this name already exists.";
+        }
+        return;
+    }
     addTask(name, priority);
-    taskInput.value = "";
-    priorityInput.value = "";
+    taskForm?.reset();
 }
+// function to clear all tasks
+clearAllButton?.addEventListener("click", () => {
+    if (!confirm("Are you sure you want to delete all tasks?"))
+        return;
+    tasks.length = 0; // clear array
+    localStorage.removeItem("tasks"); // clear storage
+    updateUI(); // rerender page
+});
 function renderTasks() {
     const target = taskPrint || app;
     if (!target)
@@ -126,10 +164,7 @@ function deleteTask(id) {
     if (taskIndex === -1)
         return;
     tasks.splice(taskIndex, 1);
-    renderTasks();
-    Taskstatistics();
-    showIncompleteTasks();
-    showHighPriorityTasks();
+    updateUI();
 }
 function addTask(name, priority) {
     const newTask = {
@@ -139,10 +174,7 @@ function addTask(name, priority) {
         status: "pending"
     };
     tasks.push(newTask);
-    renderTasks();
-    Taskstatistics();
-    showIncompleteTasks();
-    showHighPriorityTasks();
+    updateUI();
 }
 function Taskstatistics() {
     //console.log("::::::::::::Statistics:::::::")
@@ -200,6 +232,13 @@ function showHighPriorityTasks() {
         }
     }
 }
+function updateUI() {
+    renderTasks();
+    Taskstatistics();
+    showIncompleteTasks();
+    showHighPriorityTasks();
+    saveTasks();
+}
 // if (addButton && taskInput && priorityInput) {
 //     addButton.addEventListener("click", (event) => {
 //         event.preventDefault();
@@ -219,10 +258,8 @@ function showHighPriorityTasks() {
 //     });
 // }
 showHeader();
-addTask("Handla", "Medium");
-renderTasks();
-Taskstatistics();
-showIncompleteTasks();
-showHighPriorityTasks();
+//addTask("Handla", "Medium");
+loadTasks();
+updateUI();
 export {};
 //# sourceMappingURL=dag10.js.map
