@@ -19,7 +19,6 @@ function showHeader() {
         h2.textContent = "An application to learn TypeScript";
 }
 import { renderTasks, isTaskPriority } from "./render.js";
-//import { nextId } from "./types.js";
 import { saveTasks, loadTasks } from "./storage.js";
 import { deleteTask, showHighPriorityTasks, Taskstatistics, showIncompleteTasks, addTask } from "./tasks.js";
 export const tasks = [
@@ -30,14 +29,11 @@ export const tasks = [
 export let nextId = Math.max(0, ...tasks.map((t) => t.id)) + 1;
 taskForm?.addEventListener("submit", handleSubmit);
 function handleSubmit(event) {
-    console.log("form submitted");
     event.preventDefault();
     const taskInput = document.querySelector("#task-input");
     const priorityInput = document.querySelector("#priority-input");
-    if (!taskInput || !priorityInput) {
-        console.log("One or more input fields are missing.");
+    if (!taskInput || !priorityInput)
         return;
-    }
     const name = taskInput.value.trim();
     const priority = priorityInput.value.trim();
     if (!name) {
@@ -77,21 +73,13 @@ clearAllButton?.addEventListener("click", () => {
 });
 export function updateUI() {
     renderTasks();
-    console.log("renderTasks called-1");
     Taskstatistics();
-    console.log("taskStatistics called-1");
     showIncompleteTasks();
-    console.log("showincpleteedtask1");
     showHighPriorityTasks();
-    console.log("highpriortity -1");
     saveTasks();
-    console.log("save task1");
 }
 showHeader();
-console.log("header shown");
-//addTask("Handla", "Medium");
+addTask("Handla", "Medium");
 loadTasks();
-console.log("tasks loaded");
 updateUI();
-console.log("updated UI1");
 //# sourceMappingURL=dag10.js.map

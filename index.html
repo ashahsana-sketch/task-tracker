@@ -9,17 +9,17 @@
 
 <body class="m-3">
 <header id="title" class="container-fluid">
-    <h1 id="h1">Task Tracker</h1>
+    <h1 id="h1" class="border border-2">Task Tracker</h1>
     <h2 id="h2"> An application to learn the Typescript</h2>
     <hr>
 </header>
     <!-- <div class="task-controls container"> -->
- <div id="app" class="d-flex row col-md-4 border-success ms-3">
-        <form id="form-element" >
-         <p>Enter the Task name :<input id="task-input"class="form-select border-dark m-3" type="text" placeholder="New task" >  <!--//required minlength="3" maxlength="20" -->
+ <div id="app" class="container col-md-4 border border-2 m-3 p-3">
+        <form id="form-element" class="d-flex flex-column p-3 m-3" >
+         <p>Enter the Task name :<input id="task-input"class="form-select ms-3 border-dark" type="text" placeholder="New task" >  <!--//required minlength="3" maxlength="20" -->
         </p>
         <p>Select the Priority  from drop down menu:</p>
-        <select id="priority-input" class="form-select border-dark ms-3">
+        <select id="priority-input" class="form-select border border-2 ms-3">
             <option value="" disabled selected>Select an option</option>
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
@@ -35,8 +35,8 @@
     
        
  <!-- <div id="cardDisplay" class="container bg-secondary task deletedcard gap-2 m-4"></div>-->
-<div id="stats" class="container bg-success gap-2 m-4"></div>
-<div id="inComplete" class="container bg-info gap-2 m-4"></div>
-<div id="HighPriority" class="container bg-primary gap-2 m-4"></div> 
+<div id="stats" class="container border border-2 col-md-4 gap-2 m-4"></div>
+<div id="inComplete" class="container border border-2 col-md-4 gap-2 m-4"></div>
+<div id="HighPriority" class="container border border-2 col-md-4 gap-2 m-4"></div> 
 </body>
 </html>
