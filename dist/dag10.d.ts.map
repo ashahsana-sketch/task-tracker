@@ -1,1 +1,1 @@
-{"version":3,"file":"dag10.d.ts","sourceRoot":"","sources":["../src/dag10.ts"],"names":[],"mappings":""}
+{"version":3,"file":"dag10.d.ts","sourceRoot":"","sources":["../src/dag10.ts"],"names":[],"mappings":"AAEA,eAAO,MAAM,QAAQ,EAAuC,WAAW,GAAG,IAAI,CAAC;AAC/E,eAAO,MAAM,UAAU,EAA4C,WAAW,GAAG,IAAI,CAAC;AAMtF,eAAO,MAAM,eAAe,EAA8C,WAAW,GAAG,IAAI,CAAC;AAY7F,OAAO,KAAK,EAAE,IAAI,EAAE,MAAM,YAAY,CAAC;AAWvC,eAAO,MAAM,KAAK,EAAE,IAAI,EAItB,CAAC;AACH,eAAO,IAAI,MAAM,QAA6C,CAAC;AAoD/D,wBAAgB,QAAQ,IAAI,IAAI,CAW/B"}

@@ -1,5 +1,6 @@
-import { type Task, tasks } from "./types";
-import { deleteTask } from "./dag10";
+import  type {Task } from "./types.js";
+import { tasks } from "./dag10.js";
+import { deleteTask } from "./tasks.js";
 
 const taskPrint = document.querySelector("#tasks-print") as HTMLElement | null;
 const app = document.querySelector("#app") as HTMLElement | null;
@@ -10,6 +11,9 @@ function getStatusButtonText(status: Task["status"]): string {
 
 function getStatusButtonColor(status: Task["status"]): string {
     return status === "completed" ? "green" : "blue";
+}
+export function isTaskPriority(value: string): value is Task["priority"] {
+    return value === "Low" || value === "Medium" || value === "High";
 }
 
 function getPriorityButtonColor(priority: Task["priority"]): string {
@@ -74,6 +78,7 @@ export function renderTasks(): void {
         });
 
         cardDisplay.append(cardTitle, cardStatus, cardPriority, statusButton, priorityButton, deleteButton);
+        console.log(`Task rendered: ${task.name}`);
         target.append(cardDisplay);
     }
 }
