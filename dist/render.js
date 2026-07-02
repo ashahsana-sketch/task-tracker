@@ -33,14 +33,13 @@ export function renderTasks() {
     target.innerHTML = "";
     for (const task of tasks) {
         const cardDisplay = document.createElement("div");
-        cardDisplay?.style.setProperty("display", "flex");
-        cardDisplay?.style.setProperty("flex-direction", "column");
+        //    cardDisplay?.style.setProperty("display", "flex");
         // cardDisplay.style.display = "grid";
         //cardDisplay.style.gridTemplateColumns = "1fr";
         cardDisplay.style.backgroundColor = "#f0f0f0";
         cardDisplay.style.border = "2px solid #ccc";
         cardDisplay.style.borderRadius = "8px";
-        cardDisplay.style.margin = "0.5rem 0";
+        cardDisplay.style.margin = "1rem";
         cardDisplay.style.padding = "1rem";
         const cardTitle = document.createElement("h3");
         cardTitle.textContent = `${task.id}. ${task.name}`;
@@ -60,14 +59,14 @@ export function renderTasks() {
         priorityButton.style.backgroundColor = getPriorityButtonColor(task.priority);
         priorityButton.style.color = "white";
         priorityButton.style.padding = "0.4rem 0.8rem";
-        priorityButton.style.marginTop = "0.5rem";
+        priorityButton.style.marginLeft = "0.5rem";
         priorityButton.disabled = true;
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete Task";
         deleteButton.style.backgroundColor = "gray";
         deleteButton.style.color = "white";
         deleteButton.style.padding = "0.4rem 0.8rem";
-        deleteButton.style.marginTop = "0.5rem";
+        deleteButton.style.marginLeft = "0.5rem";
         deleteButton.addEventListener("click", (event) => {
             event.preventDefault();
             deleteTask(task.id);
