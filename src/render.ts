@@ -1,7 +1,7 @@
 import  type {Task } from "./types.js";
-import { tasks } from "./dag10.js";
+import { tasks } from "./types.js";
 import { deleteTask } from "./tasks.js";
-
+//import {  clickAt } from "./dag10.js";
 const taskPrint = document.querySelector("#tasks-print") as HTMLElement | null;
 const app = document.querySelector("#app") as HTMLElement | null;
 app?.style.setProperty("display", "flex");
@@ -30,7 +30,7 @@ function toggleTaskStatus(id: number): void {
     task.status = task.status === "completed" ? "pending" : "completed";
     renderTasks();
 }
-
+//console.log("Click time in render.ts:", clickTime);
 export function renderTasks(): void {
     const target = taskPrint || app;
     if (!target) return;
@@ -56,6 +56,13 @@ export function renderTasks(): void {
 
         const cardPriority = document.createElement("p");
         cardPriority.textContent = `Priority: ${task.priority}`;
+
+        const cardTime = document.createElement("p");
+        // Support Date or timestamp stored on the task
+        const ts = task.clickAt ? new Date(task.clickAt) : null;
+        cardTime.textContent = ts ? `Saved: ${ts.toLocaleString()}` : "Saved: —";
+        cardTime.style.fontSize = "0.85rem";
+        cardTime.style.color = "#555";
 
         const statusButton = document.createElement("button");
         statusButton.textContent = getStatusButtonText(task.status);
@@ -86,8 +93,9 @@ export function renderTasks(): void {
             deleteTask(task.id);
         });
 
-        cardDisplay.append(cardTitle, cardStatus, cardPriority, statusButton, priorityButton, deleteButton);
+        cardDisplay.append(cardTitle, cardStatus, cardPriority, cardTime, statusButton, priorityButton, deleteButton);
         console.log(`Task rendered: ${task.name}`);
         target.append(cardDisplay);
+        target.append(document.createElement("hr"));
     }
 }

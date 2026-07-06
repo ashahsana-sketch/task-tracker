@@ -1,5 +1,5 @@
 import { updateUI, highPriorityDiv, statsDiv, inComplete } from "./dag10.js";
-import { tasks } from "./dag10.js";
+import { tasks } from "./types.js";
 export function deleteTask(id) {
     const taskIndex = tasks.findIndex((item) => item.id === id);
     if (taskIndex === -1)
@@ -63,12 +63,15 @@ export function showIncompleteTasks() {
         }
     }
 }
-export function addTask(name, priority) {
+export function addTask(name, priority, clickAt) {
+    // Normalize clickAt to a Date object. If not provided, use current time.
+    const createdAt = clickAt ? new Date(clickAt) : new Date();
     const newTask = {
         id: tasks.length + 1,
         name,
         priority,
-        status: "pending"
+        status: "pending",
+        clickAt: createdAt
     };
     tasks.push(newTask);
     updateUI();

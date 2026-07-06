@@ -1,6 +1,6 @@
 import {updateUI,highPriorityDiv, statsDiv, inComplete} from "./dag10.js";
 import type { Task } from "./types.js";
-import  {  tasks } from "./dag10.js";
+import  {  tasks } from "./types.js";
 
 
 export function deleteTask(id: number): void {
@@ -65,15 +65,18 @@ export function showIncompleteTasks(): void {
         }
     }
 }
-export function addTask(name: string, priority: "Low" | "Medium" | "High"): void {
+export function addTask(name: string, priority: "Low" | "Medium" | "High", clickAt?: number | string | Date): void {
+    // Normalize clickAt to a Date object. If not provided, use current time.
+    const createdAt = clickAt ? new Date(clickAt) : new Date();
+
     const newTask: Task = {
         id: tasks.length + 1,
         name,
         priority,
-        status: "pending"
+        status: "pending",
+        clickAt: createdAt
     };
 
     tasks.push(newTask);
     updateUI();
-
 }

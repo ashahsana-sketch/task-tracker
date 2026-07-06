@@ -15,7 +15,7 @@ function showHeader(): void
 {
     const h1 = document.querySelector("#h1") as HTMLHeadingElement | null;
     const h2 = document.querySelector("#h2") as HTMLHeadingElement | null;
-    if (h1) h1.textContent = "Task Tracker...";
+    //if (h1) h1.textContent = "Task Tracker...";
     if (h2) h2.textContent = "An application to learn TypeScript";
 }
 
@@ -23,16 +23,14 @@ import { renderTasks, isTaskPriority } from "./render.js";
 import type { Task } from "./types.js";
 import { saveTasks, loadTasks } from "./storage.js";
 import {deleteTask,showHighPriorityTasks, Taskstatistics, showIncompleteTasks, addTask} from "./tasks.js";
+import { tasks } from "./types.js";
 
-export const tasks: Task[] = [
-     { id: 1, name: "Clean room", status: "completed", priority: "Medium" },
-     { id: 2, name: "Prepare presentation", status: "pending", priority: "High" },
-     { id: 3, name: "Call doctor", status: "pending", priority: "Low" }
- ];
-export let nextId = Math.max(0, ...tasks.map((t) => t.id)) + 1;
 
 taskForm?.addEventListener("submit", handleSubmit);
+
 function handleSubmit(event: SubmitEvent): void {
+    const clickTime=Date.now();
+    console.log("Click time in render.ts:", clickTime);
     event.preventDefault();
     const taskInput = document.querySelector("#task-input") as HTMLInputElement | null;
     const priorityInput = document.querySelector("#priority-input") as HTMLSelectElement | null;
@@ -71,12 +69,13 @@ function handleSubmit(event: SubmitEvent): void {
             }
             return;
         }
-    addTask(name, priority);
+    addTask(name, priority,clickTime);
     taskForm?.reset();
 }
 
 // function to clear all tasks
 clearAllButton?.addEventListener("click", () => {
+
     if (!confirm("Are you sure you want to delete all tasks?")) return;
         tasks.length = 0;              // clear array
         localStorage.removeItem("tasks"); // clear storage

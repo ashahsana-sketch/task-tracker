@@ -1,5 +1,6 @@
-import { tasks } from "./dag10.js";
+import { tasks } from "./types.js";
 import { deleteTask } from "./tasks.js";
+//import {  clickAt } from "./dag10.js";
 const taskPrint = document.querySelector("#tasks-print");
 const app = document.querySelector("#app");
 app?.style.setProperty("display", "flex");
@@ -26,6 +27,7 @@ function toggleTaskStatus(id) {
     task.status = task.status === "completed" ? "pending" : "completed";
     renderTasks();
 }
+//console.log("Click time in render.ts:", clickTime);
 export function renderTasks() {
     const target = taskPrint || app;
     if (!target)
@@ -47,6 +49,12 @@ export function renderTasks() {
         cardStatus.textContent = `Status: ${task.status}`;
         const cardPriority = document.createElement("p");
         cardPriority.textContent = `Priority: ${task.priority}`;
+        const cardTime = document.createElement("p");
+        // Support Date or timestamp stored on the task
+        const ts = task.clickAt ? new Date(task.clickAt) : null;
+        cardTime.textContent = ts ? `Saved: ${ts.toLocaleString()}` : "Saved: —";
+        cardTime.style.fontSize = "0.85rem";
+        cardTime.style.color = "#555";
         const statusButton = document.createElement("button");
         statusButton.textContent = getStatusButtonText(task.status);
         statusButton.style.backgroundColor = getStatusButtonColor(task.status);
@@ -71,9 +79,10 @@ export function renderTasks() {
             event.preventDefault();
             deleteTask(task.id);
         });
-        cardDisplay.append(cardTitle, cardStatus, cardPriority, statusButton, priorityButton, deleteButton);
+        cardDisplay.append(cardTitle, cardStatus, cardPriority, cardTime, statusButton, priorityButton, deleteButton);
         console.log(`Task rendered: ${task.name}`);
         target.append(cardDisplay);
+        target.append(document.createElement("hr"));
     }
 }
 //# sourceMappingURL=render.js.map

@@ -97,24 +97,75 @@ body {
 .task-layout {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: 360px minmax(0, 1fr);
+  grid-template-columns: 320px minmax(0, 1fr) 280px;
 }
 
-.task-form-card{
+.task-form-card,
+.task-list-card,
+.stats-sidebar {
   border-radius: var(--radius);
   background: rgba(15, 23, 42, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow);
   padding: 1.75rem;
-  color: rgb(246, 243, 243)
+  color: white
 }
-.task-list-card {
-  border-radius: var(--radius);
-  background: rgba(129, 161, 234, 0.92);
+
+.task-form-card {
+  color: rgb(246, 243, 243);
+}
+
+.task-list-card,
+.stats-sidebar {
+  color: rgb(235, 232, 232);
+}
+
+.stats-sidebar {
+  display: grid;
+  gap: 1rem;
+  background: rgba(15, 23, 42, 0.98);
+}
+
+.sidebar-header {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.sidebar-header p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.sidebar-card {
+  padding: 1.25rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: var(--shadow);
-  padding: 1.75rem;
-  color: rgb(16, 15, 15)
+}
+
+.sidebar-section {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.sidebar-card h3,
+.sidebar-card p {
+  margin: 0;
+}
+
+.sidebar-card h3 {
+  font-size: 1.1rem;
+  color: white;
+}
+
+.sidebar-card p {
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .task-form-card {
@@ -188,6 +239,7 @@ body {
 .tasks-print {
   display: grid;
   gap: 1rem;
+  color: black;
 }
 
 .task {

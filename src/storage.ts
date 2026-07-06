@@ -1,5 +1,5 @@
 import type { Task } from "./types.js";
-import { tasks } from "./dag10.js";
+import { tasks } from "./types.js";
 // local storage
 export function saveTasks(): void {
     localStorage.setItem("tasks", JSON.stringify(tasks));

@@ -13,22 +13,18 @@ const emptyMessage = document.querySelector("#empty-message");
 function showHeader() {
     const h1 = document.querySelector("#h1");
     const h2 = document.querySelector("#h2");
-    if (h1)
-        h1.textContent = "Task Tracker...";
+    //if (h1) h1.textContent = "Task Tracker...";
     if (h2)
         h2.textContent = "An application to learn TypeScript";
 }
 import { renderTasks, isTaskPriority } from "./render.js";
 import { saveTasks, loadTasks } from "./storage.js";
 import { deleteTask, showHighPriorityTasks, Taskstatistics, showIncompleteTasks, addTask } from "./tasks.js";
-export const tasks = [
-    { id: 1, name: "Clean room", status: "completed", priority: "Medium" },
-    { id: 2, name: "Prepare presentation", status: "pending", priority: "High" },
-    { id: 3, name: "Call doctor", status: "pending", priority: "Low" }
-];
-export let nextId = Math.max(0, ...tasks.map((t) => t.id)) + 1;
+import { tasks } from "./types.js";
 taskForm?.addEventListener("submit", handleSubmit);
 function handleSubmit(event) {
+    const clickTime = Date.now();
+    console.log("Click time in render.ts:", clickTime);
     event.preventDefault();
     const taskInput = document.querySelector("#task-input");
     const priorityInput = document.querySelector("#priority-input");
@@ -60,7 +56,7 @@ function handleSubmit(event) {
         }
         return;
     }
-    addTask(name, priority);
+    addTask(name, priority, clickTime);
     taskForm?.reset();
 }
 // function to clear all tasks

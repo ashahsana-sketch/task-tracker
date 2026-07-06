@@ -1,4 +1,4 @@
-import { tasks } from "./dag10.js";
+import { tasks } from "./types.js";
 // local storage
 export function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));

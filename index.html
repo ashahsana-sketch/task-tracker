@@ -15,11 +15,6 @@
                 <h1 id="h1">Task Tracker</h1>
                 <p id="h2" class="hero-subtitle">Organize your tasks, prioritize work, and stay focused all day.</p>
             </div>
-            <div class="hero-panels">
-                <article id="stats" class="hero-card"></article>
-                <article id="inComplete" class="hero-card"></article>
-                <article id="HighPriority" class="hero-card"></article>
-            </div>
         </header>
         <main class="task-layout">
             <section class="task-form-card">
@@ -57,6 +52,15 @@
                 <div id="tasks-print" class="tasks-print"></div>
                 <div id="app" class="tasks-print"></div>
             </section>
+            <aside class="stats-sidebar">
+                <div class="sidebar-header">
+                    <h2>Statistics</h2>
+                    <p>Live summary of your task progress.</p>
+                </div>
+                <div id="stats" class="sidebar-card"></div>
+                <div id="inComplete" class="sidebar-card sidebar-section"></div>
+                <div id="HighPriority" class="sidebar-card sidebar-section"></div>
+            </aside>
         </main>
     </div>
     <script type="module" src="dist/dag10.js" defer></script>
