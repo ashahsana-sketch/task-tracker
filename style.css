@@ -165,7 +165,7 @@ body {
 }
 
 .sidebar-card p {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(10, 8, 8, 0.75);
 }
 
 .task-form-card {
@@ -190,8 +190,7 @@ body {
   padding: 0.95rem 1rem;
   border-radius: 0.85rem;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text);
+  background: rgba(215, 209, 209, 0.05);
 }
 
 .task-form input::placeholder {
@@ -221,7 +220,7 @@ body {
 
 .secondary-button {
   background: rgba(255, 255, 255, 0.08);
-  color: var(--text);
+  color: var(--black);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
